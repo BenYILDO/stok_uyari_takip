@@ -21,6 +21,12 @@ function trackErrors(page: Page) {
   return errors;
 }
 
+// Panel testleri mesai başlangıcından (08:30) önceki saate sabitlenir;
+// aksi hâlde sabah modu kendiliğinden açılır.
+test.beforeEach(async ({ page }) => {
+  await page.clock.setFixedTime(new Date(2026, 9, 27, 8, 0));
+});
+
 test.describe("Stok Uyarı Paneli", () => {
   test("AC-14 sayfa açılır, 56 ürün yüklenir, konsolda hata yok", async ({ page }) => {
     const errors = trackErrors(page);

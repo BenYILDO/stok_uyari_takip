@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { SearchX } from "lucide-react";
+import { SearchX, Sunrise } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { KpiCards } from "@/components/KpiCards";
+import { MorningView } from "@/components/MorningView";
+import { useMorningMode } from "@/components/useMorningMode";
+import { cn } from "@/lib/utils";
 import { ProductTable } from "@/components/ProductTable";
 import { DataIssuesAlert, LoadErrorAlert, OperationalAlert } from "@/components/StatusAlerts";
 import { TablePagination } from "@/components/TablePagination";
@@ -14,6 +17,7 @@ import type { ProductAnalysis } from "@/domain/types";
 
 export default function App() {
   const [result, setResult] = useState<LoadResult | null>(null);
+  const { isMorning, toggle } = useMorningMode();
 
   useEffect(() => {
     let active = true;
@@ -32,13 +36,25 @@ export default function App() {
         Ürün listesine geç
       </a>
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10">
-        <header className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-[1.75rem]">
-            Stok Uyarı Paneli
-          </h1>
-          <p className="text-muted-foreground">
-            Ürün stoklarını ve tedarik risklerini tek ekrandan takip edin.
-          </p>
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex flex-col gap-1">
+            <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-[1.75rem]">
+              Stok Uyarı Paneli
+            </h1>
+            <p className="text-muted-foreground">
+              Ürün stoklarını ve tedarik risklerini tek ekrandan takip edin.
+            </p>
+          </div>
+          <Button
+            data-testid="morning-toggle"
+            variant={isMorning ? "default" : "outline"}
+            aria-pressed={isMorning}
+            onClick={toggle}
+            className={cn("h-10 self-start", !isMorning && "bg-card")}
+          >
+            <Sunrise aria-hidden="true" />
+            {isMorning ? "Panele dön" : "Sabah modu"}
+          </Button>
         </header>
 
         {result === null && (
@@ -47,9 +63,12 @@ export default function App() {
           </p>
         )}
         {result?.status === "error" && <LoadErrorAlert message={result.message} />}
-        {result?.status === "ready" && (
-          <Dashboard analyses={result.analyses} issues={result.issues} />
-        )}
+        {result?.status === "ready" &&
+          (isMorning ? (
+            <MorningView analyses={result.analyses} issueCount={result.issues.length} />
+          ) : (
+            <Dashboard analyses={result.analyses} issues={result.issues} />
+          ))}
       </main>
     </TooltipProvider>
   );
