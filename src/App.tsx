@@ -27,6 +27,12 @@ export default function App() {
 
   return (
     <TooltipProvider delayDuration={200}>
+      <a
+        href="#products-heading"
+        className="sr-only z-50 rounded-md bg-card px-3 py-2 text-sm font-medium focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:ring-2 focus:ring-ring"
+      >
+        Ürün listesine geç
+      </a>
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10">
         <header className="flex flex-col gap-1">
           <h1 className="text-2xl font-semibold tracking-tight text-balance sm:text-[1.75rem]">
@@ -70,7 +76,7 @@ function Dashboard({
       </section>
 
       <section aria-labelledby="products-heading" className="flex flex-col gap-4">
-        <h2 id="products-heading" className="sr-only">
+        <h2 id="products-heading" tabIndex={-1} className="sr-only">
           Ürün listesi
         </h2>
         <TableToolbar controller={controller} />

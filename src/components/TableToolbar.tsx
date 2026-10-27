@@ -30,6 +30,7 @@ export function TableToolbar({ controller }: { controller: ProductTableControlle
           />
           <Input
             id="product-search"
+            name="q"
             type="search"
             inputMode="search"
             autoComplete="off"

@@ -20,7 +20,7 @@ export const productColumns = helper.columns([
   helper.accessor((row) => row.product.sku, {
     id: "sku",
     header: "SKU",
-    cell: ({ getValue }) => getValue(),
+    cell: ({ getValue }) => <span translate="no">{getValue()}</span>,
   }),
   helper.accessor((row) => row.product.name, {
     id: "name",
@@ -28,9 +28,11 @@ export const productColumns = helper.columns([
     sortFn: "text",
     cell: ({ row }) => (
       <>
-        <span className="block font-medium text-foreground">{row.original.product.name}</span>
+        <span translate="no" className="block font-medium text-foreground">
+          {row.original.product.name}
+        </span>
         <span className="mt-0.5 flex items-center gap-2 sm:hidden">
-          <span className="text-xs whitespace-nowrap text-muted-foreground">
+          <span translate="no" className="text-xs whitespace-nowrap text-muted-foreground">
             {row.original.product.sku}
           </span>
           <StatusBadge status={row.original.status} />
@@ -68,7 +70,7 @@ export const productColumns = helper.columns([
   helper.accessor((row) => row.product.leadTimeDays, {
     id: "leadTimeDays",
     header: "Tedarik süresi",
-    cell: ({ getValue }) => `${formatNumber(getValue())} gün`,
+    cell: ({ getValue }) => `${formatNumber(getValue())} gün`,
   }),
   helper.accessor((row) => row.status, {
     id: "status",
@@ -83,7 +85,7 @@ export const productColumns = helper.columns([
           <StatusBadge status={status} />
           {gap && (
             <span className="text-xs whitespace-nowrap text-status-critical">
-              Tedarikten {formatDays(stockGapDays)} gün kısa
+              Tedarikten {formatDays(stockGapDays)}&nbsp;gün kısa
             </span>
           )}
         </span>

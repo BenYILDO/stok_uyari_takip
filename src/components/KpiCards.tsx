@@ -47,7 +47,7 @@ export function KpiCards({
   onSelect: (status: StockStatus | undefined) => void;
 }) {
   return (
-    <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label="Stok özeti">
+    <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {ITEMS.map((item) => {
         const value = kpis[item.key];
         const active = item.status ? activeStatus === item.status : activeStatus === undefined;
