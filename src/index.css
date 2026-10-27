@@ -1,1 +1,120 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/public-sans";
+
+/*
+ * Palet: soğuk nötr zemin, mürekkep metin. Renk yalnızca stok durumu için.
+ * Açık tema (brief §7); koyu tema kapsam dışı.
+ */
+:root {
+  --radius: 0.5rem;
+
+  --background: #f6f7f6;
+  --foreground: #1a2320;
+  --card: #ffffff;
+  --card-foreground: #1a2320;
+  --popover: #ffffff;
+  --popover-foreground: #1a2320;
+  --primary: #1a2320;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1ef;
+  --secondary-foreground: #1a2320;
+  --muted: #eef1ef;
+  --muted-foreground: #5a6661;
+  --accent: #eef1ef;
+  --accent-foreground: #1a2320;
+  --destructive: #b42318;
+  --border: #dde2df;
+  --input: #c9d1cd;
+  --ring: #2e6b5c;
+
+  /* Stok durumları: metin / zemin / çizgi */
+  --status-out: #ffffff;
+  --status-out-bg: #912018;
+  --status-out-line: #912018;
+  --status-critical: #b42318;
+  --status-critical-bg: #fef3f2;
+  --status-critical-line: #fecdca;
+  --status-warning: #93370d;
+  --status-warning-bg: #fffaeb;
+  --status-warning-line: #fedf89;
+  --status-warning-fill: #dc6803;
+  --status-normal: #067647;
+  --status-normal-bg: #ecfdf3;
+  --status-normal-line: #abefc6;
+  --status-idle: #5a6661;
+  --status-idle-bg: #f2f4f3;
+  --status-idle-line: #dde2df;
+
+  --row-hover: #f3f5f4;
+}
+
+@theme inline {
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-status-out: var(--status-out);
+  --color-status-out-bg: var(--status-out-bg);
+  --color-status-out-line: var(--status-out-line);
+  --color-status-critical: var(--status-critical);
+  --color-status-critical-bg: var(--status-critical-bg);
+  --color-status-critical-line: var(--status-critical-line);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-warning-line: var(--status-warning-line);
+  --color-status-warning-fill: var(--status-warning-fill);
+  --color-row-hover: var(--row-hover);
+  --color-status-normal: var(--status-normal);
+  --color-status-normal-bg: var(--status-normal-bg);
+  --color-status-normal-line: var(--status-normal-line);
+  --color-status-idle: var(--status-idle);
+  --color-status-idle-bg: var(--status-idle-bg);
+  --color-status-idle-line: var(--status-idle-line);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
