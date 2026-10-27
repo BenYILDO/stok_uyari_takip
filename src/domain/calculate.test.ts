@@ -85,6 +85,12 @@ describe("getStatus — kural sırası ve sınırlar", () => {
     expect(getStatus(product(71, 10, 2))).toBe("normal");
   });
 
+  it("ondalıklı satışta kayan nokta hatası sınırı bozmaz: 21 / 1,4 = 15 gün = tedarik → Kritik", () => {
+    expect(21 / 1.4).not.toBe(15); // IEEE 754: 15.000000000000002
+    expect(getStatus(product(21, 1.4, 15))).toBe("critical");
+    expect(getStatus(product(42, 0.7, 60))).toBe("critical");
+  });
+
   it("tedarik süresi 0 geçerlidir; 5 gün kalan → Dikkat", () => {
     expect(getStatus(product(50, 10, 0))).toBe("warning");
   });

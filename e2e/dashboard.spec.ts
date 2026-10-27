@@ -179,6 +179,18 @@ test.describe("Stok Uyarı Paneli", () => {
     await expect(rows(page)).toHaveCount(1);
   });
 
+  test("AC-19 boş ürün listesinde 'risk yok' güvencesi vermez", async ({ page }) => {
+    await page.route("**/data/products.json", (route) =>
+      route.fulfill({ contentType: "application/json", body: "[]" }),
+    );
+    await page.goto("/");
+    const alert = page.getByTestId("operational-alert");
+    await expect(alert).toContainText("Gösterilecek ürün yok.");
+    await expect(alert).not.toContainText("karşılıyor");
+    await expect(page.getByText("Listelenecek ürün yok.")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Filtreleri temizle" })).toHaveCount(0);
+  });
+
   test("masaüstü ekran görüntüsü", async ({ page }) => {
     await page.goto("/");
     await expect(rows(page)).toHaveCount(15);

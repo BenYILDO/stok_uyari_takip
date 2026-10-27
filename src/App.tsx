@@ -12,8 +12,6 @@ import { loadProducts, type LoadResult } from "@/data/loadProducts";
 import { buildAlertMessage, getKpis } from "@/domain/summarize";
 import type { ProductAnalysis } from "@/domain/types";
 
-const NO_ANALYSES: ProductAnalysis[] = [];
-
 export default function App() {
   const [result, setResult] = useState<LoadResult | null>(null);
 
@@ -58,7 +56,7 @@ export default function App() {
 }
 
 function Dashboard({
-  analyses = NO_ANALYSES,
+  analyses,
   issues,
 }: {
   analyses: ProductAnalysis[];
@@ -71,7 +69,7 @@ function Dashboard({
     <>
       <section aria-label="Stok özeti" className="flex flex-col gap-3">
         <KpiCards kpis={kpis} activeStatus={controller.status} onSelect={controller.setStatus} />
-        <OperationalAlert message={buildAlertMessage(kpis)} />
+        <OperationalAlert message={buildAlertMessage(kpis, issues.length)} />
         <DataIssuesAlert issues={issues} />
       </section>
 
@@ -83,13 +81,17 @@ function Dashboard({
         <ProductTable
           controller={controller}
           emptyState={
-            <div className="flex flex-col items-center gap-3 text-center">
-              <SearchX aria-hidden="true" className="size-6 text-muted-foreground" />
-              <p className="font-medium">Bu arama ve filtrelerle eşleşen ürün yok.</p>
-              <Button variant="outline" size="sm" onClick={controller.reset}>
-                Filtreleri temizle
-              </Button>
-            </div>
+            analyses.length === 0 ? (
+              <p className="text-center text-muted-foreground">Listelenecek ürün yok.</p>
+            ) : (
+              <div className="flex flex-col items-center gap-3 text-center">
+                <SearchX aria-hidden="true" className="size-6 text-muted-foreground" />
+                <p className="font-medium">Bu arama ve filtrelerle eşleşen ürün yok.</p>
+                <Button variant="outline" size="sm" onClick={controller.reset}>
+                  Filtreleri temizle
+                </Button>
+              </div>
+            )
           }
         />
         <TablePagination controller={controller} />

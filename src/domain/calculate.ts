@@ -2,6 +2,11 @@ import type { Product, ProductAnalysis, StockStatus } from "./types";
 
 const CRITICAL_DAYS = 3;
 const WARNING_DAYS = 7;
+/**
+ * Kayan nokta toleransı (yuvarlama değildir). Ondalıklı satışta bölme
+ * sonucu sınırın hemen üstüne düşebilir: 21 / 1.4 = 15.000000000000002.
+ */
+const EPSILON = 1e-9;
 
 /** stock / dailyAverageSales. Satış 0 ise sıfıra bölmemek için null. */
 export function getRemainingDays(p: Product): number | null {
@@ -25,8 +30,9 @@ export function getStatus(p: Product): StockStatus {
   const remaining = getRemainingDays(p);
   if (remaining === null) return "no_sales";
 
-  if (remaining <= CRITICAL_DAYS || remaining <= p.leadTimeDays) return "critical";
-  if (remaining <= WARNING_DAYS) return "warning";
+  const atMost = (limit: number) => remaining <= limit + EPSILON;
+  if (atMost(CRITICAL_DAYS) || atMost(p.leadTimeDays)) return "critical";
+  if (atMost(WARNING_DAYS)) return "warning";
   return "normal";
 }
 

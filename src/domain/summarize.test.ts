@@ -67,6 +67,32 @@ describe("buildAlertMessage", () => {
     });
   });
 
+  it("ürün yoksa risk yok demez, boş veri olduğunu söyler", () => {
+    expect(buildAlertMessage({ total: 0, outOfStock: 0, critical: 0, warning: 0 })).toEqual({
+      tone: "info",
+      title: "Gösterilecek ürün yok.",
+      description: "Ürün dosyasında kayıt bulunamadı. Kayıtlar eklendiğinde burada listelenir.",
+    });
+  });
+
+  it("tüm kayıtlar hatalıysa hiçbir ürünün değerlendirilemediğini söyler", () => {
+    expect(
+      buildAlertMessage({ total: 0, outOfStock: 0, critical: 0, warning: 0 }, 3),
+    ).toEqual({
+      tone: "info",
+      title: "Gösterilecek ürün yok.",
+      description: "3 kaydın tamamı hatalı veri nedeniyle değerlendirilemedi.",
+    });
+  });
+
+  it("hatalı kayıt varken güvenceyi hesaplanabilen ürünlerle sınırlar", () => {
+    expect(
+      buildAlertMessage({ total: 9, outOfStock: 0, critical: 0, warning: 0 }, 2).description,
+    ).toBe(
+      "Hesaplanabilen ürünlerin stoğu tedarik süresini karşılıyor; 2 kayıt hatalı veri nedeniyle değerlendirilemedi.",
+    );
+  });
+
   it("sipariş oluşturulduğunu ima etmez (V9)", () => {
     const messages = [
       buildAlertMessage({ total: 9, outOfStock: 2, critical: 3, warning: 1 }),
