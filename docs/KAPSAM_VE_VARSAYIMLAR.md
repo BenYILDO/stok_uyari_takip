@@ -34,3 +34,10 @@ Brief'te açıkça tanımlanmamış konularda verilen kararlar:
 | V10 | KPI kartları tıklanabilir ve tabloyu ilgili duruma filtreler. "Toplam ürün" kartı filtreyi kaldırır. | Müdür tek tıkla "kritik olanlar hangileri?" sorusunun cevabına ulaşır. Yeni bir veri işlemi değildir. |
 | V11 | Mobilde (640 px altı) SKU ayrı sütun yerine ürün adının altında, durum rozetiyle birlikte gösterilir. Ürün adı sütunu yatay kaydırmada sabit kalır. | Dar ekranda en önemli bilgi (durum) kaydırmaya gerek kalmadan görünür. |
 | V12 | Sütun başlığına ilk tıklama artan sıralar, ikincisi azalan, üçüncüsü aciliyet sırasına döner. | "Kalan gün"de önce en kısa süre görünür. |
+| V13 | Sabah modunda "sipariş gereken" ürünler = Tükendi + Kritik. Yeni bir eşik eklenmedi. | Kritik kuralı zaten stok, günlük satış ve tedarik süresini birlikte değerlendiriyor; panel ile sabah modu aynı sayıyı gösterir. |
+| V14 | Sabah modu cihazın yerel saatine göre 08:30'da açılır. Hafta sonu veya tatil ayrımı yapılmaz. | Mağazanın her gün açık olduğu varsayıldı. |
+| V15 | "Bugün gösterildi" bilgisi tarayıcıda (localStorage) tarih olarak saklanır. Tarayıcı izin vermezse mod 08:30 sonrası her açılışta bir kez açılır; panel çökmez. | Sunucu yok; tek cihazlık POC. |
+| V16 | Sabah modu 08:30 sonrası butonla elle açıldıysa o gün gösterilmiş sayılır. 08:30'dan önce elle açılıp kapatılırsa 08:30'da yine kendiliğinden açılır. Sabah modundan panele dönülünce tablo filtreleri sıfırlanır. | Mesai başlangıcındaki gösterim kaçırılmaz. |
+| V17 | Sabah modunda sipariş butonu veya "sipariş verildi/oluşturuldu" ifadesi yoktur. Ekran yalnızca neyin sipariş edilmesi gerektiğini gösterir. | İlk brief §7.C kuralı. |
+
+Sabah modu tasarımı: [superpowers/specs/2026-10-27-sabah-modu-design.md](superpowers/specs/2026-10-27-sabah-modu-design.md)

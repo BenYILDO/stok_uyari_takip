@@ -26,6 +26,7 @@ Tek sayfalık, salt okunur bir karar destek paneli:
 - **Ürün tablosu:** aciliyete göre sıralı. Arama, kategori ve durum filtresi, sayfalama ve sütun sıralaması var.
 - **Stok/tedarik çubuğu:** kalan stok süresi (dolgu) ile tedarik süresi (çentik) yan yana. Dolgu çentiğe ulaşmıyorsa yeni stok gelmeden ürün tükenir.
 - **Hatalı veriye dayanıklılık:** bozuk kayıtlar nedenleriyle listelenir, panel çalışmaya devam eder.
+- **Sabah modu:** mesai başlangıcında (08:30) kendiliğinden açılır ve "Hangi ürünler kritik durumda ve acil sipariş gerektiriyor?" sorusunu cevaplar. Örneğin "Bugün 15 ürün için sipariş vermeniz gerekiyor." Her ürünün altında neden acil olduğu yazar: "Bugün sipariş verilse bile yaklaşık 3 gün stoksuz kalır." Sunumda butonla açılıp kapanır.
 
 ## İş kuralları
 - Kalan gün = stok ÷ günlük ortalama satış (satış 0 ise hesaplanmaz)

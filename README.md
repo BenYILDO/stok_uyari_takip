@@ -45,6 +45,16 @@ Hatalı kayıtlar sıfıra çevrilmez. Tablo ve özet sayılarının dışında 
 
 Karşılaştırmalar yuvarlanmamış değerlerle yapılır. Yuvarlama yalnızca ekranda uygulanır (1 ondalık).
 
+## Sabah modu
+
+"Hangi ürünler kritik durumda ve acil sipariş gerektiriyor?" sorusunu tek ekranda cevaplar: kaç ürün için sipariş gerektiği, "Stoğu tükendi" ve "Yeni stok gelmeden tükenecek" grupları, her üründe stok, kalan gün, tedarik süresi ve kaç gün stoksuz kalınacağı.
+
+- **Otomatik:** mesai başlangıcı 08:30. Günün 08:30'dan sonraki ilk açılışında kendiliğinden açılır; kapatılınca o gün tekrar açılmaz. Panel 08:30'dan önce açıksa saat gelince geçer.
+- **Elle (sunum/test):** sağ üstteki **Sabah modu** butonu modu açar, **Panele dön** butonu kapatır.
+- Otomatik açılmayı yeniden denemek için tarayıcıda `localStorage` içindeki `stok-paneli:sabah-modu:son-gosterim` anahtarını silin.
+
+![Sabah modu](docs/screenshots/morning.png)
+
 ## Mimari
 
 ```
@@ -55,6 +65,8 @@ src/
     validate.ts    JSON kayıt doğrulama
     summarize.ts   KPI ve uyarı metni
     search.ts      Türkçe harf duyarsız arama
+    orderNeeds.ts  sabah modu: sipariş gereken ürünler
+    shiftClock.ts  mesai başlangıcı (08:30) ve günlük gösterim kuralı
   data/        JSON yükleme (hiçbir durumda fırlatmaz)
   components/  React + shadcn/ui; TanStack Table yalnızca tablo durumunu yönetir
   lib/         Biçimlendirme (tr-TR), durum etiketleri

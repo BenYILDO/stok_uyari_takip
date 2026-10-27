@@ -5,9 +5,27 @@ Son doğrulama: 2026-10-27, `feature/poc` dalı.
 | Komut | Sonuç |
 |---|---|
 | `npx tsc --noEmit` | exit 0 |
-| `npm test` (Vitest) | 8 dosya, **72/72 geçti** |
-| `npm run test:e2e` (Playwright, Chromium masaüstü 1440 px + Pixel 7 mobil) | **15/15 geçti** |
+| `npm test` (Vitest) | 10 dosya, **94/94 geçti** |
+| `npm run test:e2e` (Playwright, Chromium masaüstü 1440 px + Pixel 7 mobil) | **21/21 geçti** |
 | `npm run build` | exit 0 |
+
+## İş birimi kabul kriterleri
+
+| # | Kriter | Nasıl karşılanıyor | Test | Durum |
+|---|---|---|---|---|
+| 1 | Ürün listesi bir tabloda görünsün | Ana tablo: SKU, ad, kategori, stok, günlük satış, kalan gün, tedarik süresi, durum; 15'erli sayfa | e2e › AC-14, AC-17 | ✅ |
+| 2 | Her ürünün stokta ne kadar süre kalacağı hesaplansın | "Kalan gün" = stok ÷ günlük satış; satış 0 ise "—" | `calculate.test.ts`; e2e › AC-15 (12 gün) | ✅ |
+| 3 | Kritik ürünler görsel olarak öne çıksın | Kırmızı rozet ve ikon, satırda sol kırmızı çizgi, "Tedarikten N gün kısa" notu; Tükendi için koyu kırmızı | e2e › AC-15; ekran görüntüleri | ✅ |
+| 4 | Sıralama otomatik olsun, en acil üstte | Açılışta Tükendi → Kritik (açığı büyük önce) → Dikkat → Normal → Satış Yok | `prioritize.test.ts`; e2e › AC-15 ilk yüklemede Tükendi üstte | ✅ |
+| 5 | Sabah bakınca "sipariş vermem gereken var mı" hemen anlaşılsın | **Sabah modu:** 08:30'dan sonraki ilk açılışta kendiliğinden açılır; "Hangi ürünler kritik durumda ve acil sipariş gerektiriyor?" sorusunu tek cümleyle cevaplar ve ürünleri listeler. Sunum için butonla açılıp kapanır. | `orderNeeds.test.ts`, `shiftClock.test.ts`; e2e › AC-20, AC-21, AC-22 | ✅ |
+
+## Sabah modu
+
+| Kod | Kriter | Test | Durum |
+|---|---|---|---|
+| AC-20 | Buton ile sabah moduna geçilir ve aynı butonla panele dönülür; mobilde taşma ve konsol hatası yok | e2e › AC-20 (masaüstü + mobil) | ✅ |
+| AC-21 | 08:30'dan önce açılmaz; 08:30'dan sonraki ilk açılışta açılır; kapatılınca o gün tekrar açılmaz; ertesi gün yeniden açılır; panel 08:30'dan önce açıksa saat gelince geçer | `shiftClock.test.ts` (11 test); e2e › AC-21 (iki test) | ✅ |
+| AC-22 | Sipariş gereken = Tükendi + Kritik (demo veride 15); iki grup; her üründe stok, kalan gün, tedarik süresi ve neden acil olduğu; sipariş oluşturulduğunu ima eden ifade yok | `orderNeeds.test.ts` (11 test); e2e › AC-22 | ✅ |
 
 ## Brief §9 — durum senaryoları
 
