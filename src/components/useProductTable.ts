@@ -54,6 +54,8 @@ export function useProductTable(analyses: ProductAnalysis[]) {
     onGlobalFilterChange: setGlobalFilter,
     onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
+    // İlk tıklama her sütunda artan sıralar: en kısa kalan gün en üstte
+    sortDescFirst: false,
     globalFilterFn: (row, _columnId, value: string) => matchesSearch(row.original.product, value),
     getColumnCanGlobalFilter: (column) => column.id === "sku",
   });

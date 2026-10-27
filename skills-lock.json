@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "archify": {
+      "source": "tt-a1i/archify",
+      "sourceType": "github",
+      "skillPath": "archify/SKILL.md",
+      "computedHash": "70e7a2a6850fc0603471e5c5e0bb0597504c76b6eddaf68ca02852683e7ff0d7"
+    },
     "brainstorming": {
       "source": "obra/superpowers",
       "sourceType": "github",
